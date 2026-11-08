@@ -7,7 +7,7 @@ license: "Apache-2.0"
 repository: "https://github.com/wearedevilabs/cloudslash-plugin-postgres"
 entrypoint: "./cloudslash-plugin-postgres"
 capabilities:
-  - "scan"
+  - "discovery"
   - "quarantine"
   - "remediation"
 provider: "postgres"

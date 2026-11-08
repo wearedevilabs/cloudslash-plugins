@@ -5,7 +5,7 @@ author: "CloudSlash Team"
 license: "Apache-2.0"
 entrypoint: "./cloudslash-plugin-Linode"
 capabilities:
-  - "scan"
+  - "discovery"
 provider: "linode"
 supported_regions:
   - "us-east"
