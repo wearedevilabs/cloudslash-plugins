@@ -1,0 +1,5 @@
+name: cloudslash-plugin-example
+version: 0.1.0
+description: Example plugin
+provider: example
+capabilities: [scan]

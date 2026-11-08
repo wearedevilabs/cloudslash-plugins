@@ -1,0 +1,30 @@
+name: k8s
+version: 2.0.0
+type: plugin
+author: DrSkyle
+description: Kubernetes data-source plugin for CloudSlash — discovers resources and emits canonical CRN graph data
+tags: [kubernetes, k8s, container, orchestration]
+cloudslash_min_version: 2.0.0
+
+provider:
+  name: k8s
+  regions: []  # Kubernetes is not region-specific
+
+capabilities:
+  discovery: true
+  rightsize: false
+  pricing: false  # Kubernetes itself doesn't have pricing data
+
+# RBAC permissions this plugin requires.
+permissions:
+  k8s:
+    read:
+      - pods
+      - services
+      - deployments
+      - statefulsets
+      - daemonsets
+      - persistentvolumeclaims
+      - configmaps
+      - secrets
+      - nodes

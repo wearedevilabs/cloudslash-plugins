@@ -1,0 +1,34 @@
+name: gcp
+version: 2.0.0
+type: plugin
+author: DrSkyle
+description: GCP data-source plugin for CloudSlash — discovers resources and emits canonical CRN graph data
+tags: [gcp, google, cloud, infrastructure]
+cloudslash_min_version: 2.0.0
+
+provider:
+  name: gcp
+  regions:
+    - us-central1
+    - us-east1
+    - us-west1
+    - europe-west1
+    - asia-east1
+
+capabilities:
+  discovery: true
+  rightsize: false
+  pricing: false
+
+# Least-privilege IAM roles this plugin requires.
+permissions:
+  gcp:
+    read:
+      - compute.instances.list
+      - compute.disks.list
+      - compute.snapshots.list
+      - storage.buckets.list
+      - container.clusters.list
+      - sql.instances.list
+      - redis.instances.list
+      - bigtable.instances.list

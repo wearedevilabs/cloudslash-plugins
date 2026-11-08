@@ -1,0 +1,129 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2024-2026 CloudSlash Contributors
+
+package aws
+
+import (
+	"context"
+	"strings"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/service/ec2"
+	"github.com/aws/aws-sdk-go-v2/service/route53"
+)
+
+// EIPScanner scans Elastic IPs.
+type EIPScanner struct {
+	Client    *ec2.Client
+	R53Client *route53.Client
+	Graph     *Collector
+	Region    string
+}
+
+func NewEIPScanner(cfg aws.Config, g *Collector) *EIPScanner {
+	return &EIPScanner{
+		Client:    ec2.NewFromConfig(cfg),
+		R53Client: route53.NewFromConfig(cfg),
+		Graph:     g,
+		Region:    cfg.Region,
+	}
+}
+
+// ScanAddresses discovers Elastic IPs.
+func (s *EIPScanner) ScanAddresses(ctx context.Context) error {
+	out, err := s.Client.DescribeAddresses(ctx, &ec2.DescribeAddressesInput{})
+	if err != nil {
+		return err
+	}
+
+	for _, addr := range out.Addresses {
+		ip := *addr.PublicIp
+		id := *addr.AllocationId
+
+		props := map[string]interface{}{
+			"Service":      "EIP",
+			"PublicIp":     ip,
+			"AllocationId": id,
+		}
+
+		if addr.AssociationId != nil {
+			props["AssociationId"] = *addr.AssociationId
+			if addr.InstanceId != nil {
+				props["InstanceId"] = *addr.InstanceId
+
+			}
+		}
+
+
+		
+		eipCRN := toCRN(s.Region, "current", "ec2", "eip", id)
+		s.Graph.AddNode(eipCRN, props)
+
+		// Check for DNS records pointing to this IP.
+		go s.checkDNS(ctx, id, ip)
+	}
+	return nil
+}
+
+// checkDNS checks Route53 for IP records.
+func (s *EIPScanner) checkDNS(ctx context.Context, id, ip string) {
+	// List Hosted Zones.
+	zonesPaginator := route53.NewListHostedZonesPaginator(s.R53Client, &route53.ListHostedZonesInput{})
+
+	foundInDNS := false
+	badZone := ""
+
+	for zonesPaginator.HasMorePages() {
+		page, err := zonesPaginator.NextPage(ctx)
+		if err != nil {
+			break
+		}
+
+		for _, zone := range page.HostedZones {
+			// Search zone.
+			// Scan records.
+
+			recPaginator := route53.NewListResourceRecordSetsPaginator(s.R53Client, &route53.ListResourceRecordSetsInput{
+				HostedZoneId: zone.Id,
+			})
+
+			for recPaginator.HasMorePages() {
+				recPage, err := recPaginator.NextPage(ctx)
+				if err != nil {
+					break
+				}
+
+				for _, rec := range recPage.ResourceRecordSets {
+					// Check records.
+					for _, rr := range rec.ResourceRecords {
+						if rr.Value != nil && strings.Contains(*rr.Value, ip) {
+							foundInDNS = true
+							badZone = *zone.Name
+							break
+						}
+					}
+					if foundInDNS {
+						break
+					}
+				}
+				if foundInDNS {
+					break
+				}
+			}
+			if foundInDNS {
+				break
+			}
+		}
+		if foundInDNS {
+			break
+		}
+	}
+
+	node := s.Graph.GetNode(toCRN(s.Region, "current", "ec2", "eip", id))
+	if node != nil {
+		node.Properties["FoundInDNS"] = foundInDNS
+		if foundInDNS {
+			node.Properties["DNSZone"] = badZone
+		}
+	}
+}

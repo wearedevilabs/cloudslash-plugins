@@ -1,0 +1,14 @@
+name: "cloudslash-plugin-Linode"
+version: "1.0.0"
+description: "Linode / Akamai Cloud read-only instances, volumes, and NodeBalancer scanner"
+author: "CloudSlash Team"
+license: "Apache-2.0"
+entrypoint: "./cloudslash-plugin-Linode"
+capabilities:
+  - "scan"
+provider: "linode"
+supported_regions:
+  - "us-east"
+  - "us-west"
+  - "eu-central"
+  - "ap-south"
