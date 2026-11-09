@@ -1,3 +1,8 @@
 # CloudSlash Plugins
-Community and reference plugins. Build one in 5 minutes: copy a template from templates/, edit manifest.yaml, run its scan script, then submit a PR.
-Each plugin ships a manifest.yaml (or plugin.json) next to its binary/script. Install with: cloudslash plugin install <name>.
+Write a plugin in any language in 5 minutes:
+
+    ./new-plugin.sh mycloud python     # scaffolds + installs ~/.cloudslash/plugins/cloudslash-plugin-mycloud
+    # edit scan.py: print {"provider","account","resources":[{id,type,service,region,cost_monthly,tags,properties}]}
+    cloudslash scan --allow-unsigned
+
+The script runtime (runtime/script) runs scan.py / scan.sh / scan.js / scan next to it, passes scan config as CLOUDSLASH_<KEY> env vars, and converts JSON output into CloudSlash resources. See examples/stale-files for a real working scanner. Compiled Go plugins live in plugins/.

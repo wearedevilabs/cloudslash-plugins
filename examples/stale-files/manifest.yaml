@@ -1,0 +1,5 @@
+name: cloudslash-plugin-stale-files
+version: 0.1.0
+description: Finds large files nobody has touched in 90 days (real local scan)
+provider: local
+capabilities: [discovery]
