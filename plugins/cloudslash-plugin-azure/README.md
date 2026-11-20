@@ -1,11 +1,11 @@
 # CloudSlash Azure Provider Plugin
 
-Official Microsoft Azure provider plugin for CloudSlash. Collects Azure Virtual Machines, Managed Disks, Azure SQL databases, and public IPs, executing safe optimizations.
+Official Microsoft Azure starter plugin for CloudSlash. Performs read-only discovery of Azure Virtual Machines, Managed Disks, Azure SQL databases, and public IPs.
 
 ## Capabilities
 - **Provider**: `azure`
-- **Capabilities**: `scan`, `quarantine`, `remediation`
-- **Contract**: CloudSlash Plugin SDK v2
+- **Capabilities**: `scan` (read-only discovery; remediation contributions welcome)
+- **Contract**: CloudSlash Plugin SDK v1.0.0
 
 ## Authentication
 Supports default Azure credentials chain:

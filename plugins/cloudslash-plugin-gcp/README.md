@@ -1,11 +1,11 @@
 # CloudSlash GCP Provider Plugin
 
-Official Google Cloud Platform (GCP) provider plugin for CloudSlash. Collects Compute Engine VM instances, persistent disks, Cloud SQL instances, and Cloud Storage buckets.
+Official Google Cloud Platform (GCP) starter plugin for CloudSlash. Performs read-only discovery of Compute Engine VM instances, persistent disks, Cloud SQL instances, and Cloud Storage buckets.
 
 ## Capabilities
 - **Provider**: `gcp`
-- **Capabilities**: `scan`, `quarantine`, `remediation`
-- **Contract**: CloudSlash Plugin SDK v2
+- **Capabilities**: `scan` (read-only discovery; remediation contributions welcome)
+- **Contract**: CloudSlash Plugin SDK v1.0.0
 
 ## Authentication
 Supports Google Application Default Credentials (ADC):

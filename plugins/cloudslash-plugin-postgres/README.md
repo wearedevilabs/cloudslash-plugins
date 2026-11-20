@@ -1,6 +1,6 @@
-# cloudslash-plugin-cloudslash-plugin-postgres
+# cloudslash-plugin-postgres
 
-CloudSlash provider plugin for Cloudslash-plugin-postgres.
+Starter scaffold for a PostgreSQL CloudSlash plugin.
 
 ## Implement Scan
 

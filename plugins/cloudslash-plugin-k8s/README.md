@@ -1,11 +1,11 @@
 # CloudSlash Kubernetes Provider Plugin
 
-Official Kubernetes provider plugin for CloudSlash. Collects pod resource requests/limits, persistent volumes (PVs/PVCs), orphan LoadBalancer services, and node capacity to detect over-provisioned or unallocated cluster resources.
+Official Kubernetes starter plugin for CloudSlash. Performs read-only discovery of pod resource requests/limits, persistent volumes (PVs/PVCs), orphaned LoadBalancer services, and node capacity.
 
 ## Capabilities
 - **Provider**: `k8s`
-- **Capabilities**: `scan`, `quarantine`, `remediation`
-- **Contract**: CloudSlash Plugin SDK v2
+- **Capabilities**: `scan` (read-only discovery; remediation contributions welcome)
+- **Contract**: CloudSlash Plugin SDK v1.0.0
 
 ## Authentication
 Supports standard Kubernetes client authentication:
