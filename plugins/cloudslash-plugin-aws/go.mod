@@ -2,10 +2,8 @@ module github.com/DrSkyle/cloudslash-plugin-aws
 
 go 1.26.3
 
-replace github.com/DrSkyle/cloudslash-plugin-sdk => ../../cloudslash/sdk
-
 require (
-	github.com/DrSkyle/cloudslash-plugin-sdk v0.0.0-00010101000000-000000000000
+	github.com/DrSkyle/cloudslash-plugin-sdk v1.0.0
 	github.com/aws/aws-sdk-go-v2 v1.46.0
 	github.com/aws/aws-sdk-go-v2/config v1.32.25
 	github.com/aws/aws-sdk-go-v2/service/applicationautoscaling v1.41.10

@@ -2,8 +2,6 @@ module github.com/DrSkyle/cloudslash-plugin-azure
 
 go 1.26.3
 
-replace github.com/DrSkyle/cloudslash-plugin-sdk => ../../cloudslash/sdk
-
 require (
 	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.14.0
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v4 v4.1.0
@@ -14,7 +12,7 @@ require (
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/redis/armredis/v3 v3.3.0
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/sql/armsql v1.2.0
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage v1.8.1
-	github.com/DrSkyle/cloudslash-plugin-sdk v0.0.0-00010101000000-000000000000
+	github.com/DrSkyle/cloudslash-plugin-sdk v1.0.0
 	github.com/hashicorp/go-plugin v1.7.0
 )
 
