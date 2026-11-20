@@ -1,0 +1,11 @@
+# Compiled plugin binaries
+plugins/*/cloudslash-plugin-*
+!plugins/*/*.go
+!plugins/*/*.md
+!plugins/*/*.yaml
+!plugins/*/*.yml
+!plugins/*/*.json
+!plugins/*/*.sh
+runtime/script/cloudslash-plugin-script
+*.exe
+.DS_Store
